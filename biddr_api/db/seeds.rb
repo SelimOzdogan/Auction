@@ -8,6 +8,18 @@
 
 Bid.destroy_all
 Auction.destroy_all
+User.destroy_all
+
+PASSWORD = "1"
+
+10.times do |u|
+  user = User.create({
+    email: Faker::Internet.email,
+    password: PASSWORD,
+  })
+end
+
+users = User.all
 
 10.times do |a|
   auction = Auction.create({
@@ -15,12 +27,15 @@ Auction.destroy_all
     description: Faker::Commerce.department,
     ends_at: Faker::Date.between(from: 10.days.ago, to: 10.days.from_now),
     reserve_price: rand(1..1000),
+    user: users.sample,
   })
 
   if auction.valid?
     rand(0..10).times do |b|
       bid = Bid.create({
-        bid: rand(1..1000),
+        bid: rand(1..1500),
+        user: users.sample,
+        auction: auction,
       })
     end
   end

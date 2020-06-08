@@ -1,3 +1,4 @@
 class Auction < ApplicationRecord
-  has_many :bis, dependent: :destroy
+    belongs_to :user
+    has_many :bid, dependent: :destroy
 end
