@@ -14,6 +14,7 @@ PASSWORD = "1"
 
 10.times do |u|
   user = User.create({
+    name: "#{Faker::Name.first_name} #{Faker::Name.last_name}",
     email: Faker::Internet.email,
     password: PASSWORD,
   })
