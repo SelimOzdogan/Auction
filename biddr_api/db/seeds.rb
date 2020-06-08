@@ -43,3 +43,4 @@ end
 
 puts "Created #{Bid.count} Bid"
 puts "Created #{Auction.count} Auction"
+puts "Created #{User.count} User"
