@@ -11,4 +11,13 @@ class Api::V1::SessionsController < Api::ApplicationController
       )
     end
   end
+
+  def current
+    render(json: current_user)
+  end
+
+  def destroy
+    session[:user_id] = nil
+    render(json: { status: 200 }, status: 200)
+  end
 end

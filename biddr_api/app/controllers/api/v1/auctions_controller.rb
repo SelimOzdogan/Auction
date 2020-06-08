@@ -1,5 +1,5 @@
 class Api::V1::AuctionsController < Api::ApplicationController
-  # before_action :authenticated_user!
+  before_action :authenticated_user!, only: [:create]
   before_action :find_auction, only: [:show]
 
   def index
