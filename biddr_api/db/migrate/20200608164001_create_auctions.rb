@@ -4,7 +4,7 @@ class CreateAuctions < ActiveRecord::Migration[6.0]
       t.string :title
       t.text :description
       t.timestamp :ends_at
-      t.integer :reverve_price
+      t.integer :reserve_price
       t.timestamps
     end
   end

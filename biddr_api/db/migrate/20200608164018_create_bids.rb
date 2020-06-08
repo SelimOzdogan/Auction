@@ -1,7 +1,7 @@
 class CreateBids < ActiveRecord::Migration[6.0]
   def change
     create_table :bids do |t|
-      t.integer bid
+      t.integer :bid
       t.timestamps
     end
   end
