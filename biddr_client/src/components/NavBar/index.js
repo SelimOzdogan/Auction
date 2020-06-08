@@ -12,7 +12,7 @@ function Navbar(props) {
       |
       <NavLink to='/sign_in'>Sign In</NavLink>
       |
-      {currentUser.name}
+      {/* {currentUser.name} */}
     </div>
   )
 }

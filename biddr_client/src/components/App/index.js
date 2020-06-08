@@ -5,6 +5,7 @@ import AuctionNewPage from '../AuctionNewPage';
 import SignInPage from '../SignInPage';
 import WelcomePage from '../WelcomePage';
 import NavBar from '../NavBar';
+import { User } from "../../requests";
 
 class App extends Component {
   constructor(props) {
@@ -21,17 +22,13 @@ class App extends Component {
   }
 
   getCurrentUser() {
-    fetch(`http://localhost:3000/api/v1/users/current`, {
-      credentials: 'include'
-    }).then((res) => {
-      return res.json()
-    }).then((data) => {
+    User.current().then((data) => {
       this.setState((state) => {
         return {
           currentUser: data
         }
-      })
-    })
+      });
+    });
   }
 
   handleSignIn(params) {
@@ -49,15 +46,15 @@ class App extends Component {
     })
   }
   render() {
-    return(
+    return (
       <div>
         <BrowserRouter>
-          <NavBar currentUser={this.state.currentUser}/>
+          <NavBar currentUser={this.state.currentUser} />
           <Switch>
-          <Route path="/" exact component={WelcomePage} />
-            <Route path='/auctions' exact component={AuctionIndexPage}/>
-            <Route path='/auctions/new' component={AuctionNewPage}/>
-            <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps}/>} />
+            <Route path="/" exact component={WelcomePage} />
+            <Route path='/auctions' exact component={AuctionIndexPage} />
+            {/* <Route path='/auctions/new' component={AuctionNewPage} /> */}
+            <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps} />} />
           </Switch>
         </BrowserRouter>
       </div>
