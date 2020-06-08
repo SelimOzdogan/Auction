@@ -8,6 +8,13 @@ class Api::V1::AuctionsController < Api::ApplicationController
   end
 
   def show
+    if @auction
+      render(
+        json: @auction,
+      )
+    else
+      render(json: { error: "Auction Not Found" })
+    end
   end
 
   def create
@@ -29,6 +36,6 @@ class Api::V1::AuctionsController < Api::ApplicationController
   end
 
   def find_auction
-    auction = Auction.find params[:id]
+    @auction = Auction.find params[:id]
   end
 end
