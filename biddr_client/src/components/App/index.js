@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AuctionIndexPage from '../AuctionIndexPage';
 import AuctionNewPage from '../AuctionNewPage';
+import AuctionShowPage from '../AuctionShowPage';
 import SignInPage from '../SignInPage';
 import WelcomePage from '../WelcomePage';
 import NavBar from '../NavBar';
-import { User } from "../../requests";
+import { User, Session } from "../../requests";
 
 class App extends Component {
   constructor(props) {
@@ -32,16 +33,7 @@ class App extends Component {
   }
 
   handleSignIn(params) {
-    fetch(`http://localhost:3000/api/v1/sessions`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    }).then((res) => {
-      return res.json()
-    }).then((data) => {
+    Session.create(params).then((data) => {
       this.getCurrentUser()
     })
   }
@@ -53,7 +45,8 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={WelcomePage} />
             <Route path='/auctions' exact component={AuctionIndexPage} />
-            {/* <Route path='/auctions/new' component={AuctionNewPage} /> */}
+            <Route path='/auctions/new' component={AuctionNewPage} />
+            <Route path="/auctions/:id" component={AuctionShowPage} />
             <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps} />} />
           </Switch>
         </BrowserRouter>
