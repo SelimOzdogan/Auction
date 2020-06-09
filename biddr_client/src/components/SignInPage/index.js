@@ -7,25 +7,23 @@ function SignInPage(props) {
         event.preventDefault();
         const { currentTarget } = event;
         const formData = new FormData(currentTarget);
-        const params = {
-            email: formData.get('email'),
-            password: formData.get('password')
-        }
-        props.handleSignIn(params)
+        // const params = {
+        //     email: formData.get('email'),
+        //     password: formData.get('password')
+        // }
+        // props.handleSignIn(params)
 
-        // Session.create({
-        //     email: formData.get("email"),
-        //     password: formData.get("password"),
-        // }).then((data) => {
-        //     if (data.status === 404) {
-        //         this.setState({
-        //             error: [{ message: "Wrong Credentials" }],
-        //         });
-        //     } else {
-        //         // this.props.history.push("/");
-        //         props.getUser();
-        //     }
-        // });
+        Session.create({
+            email: formData.get("email"),
+            password: formData.get("password"),
+        }).then((data) => {
+            if (data.status === 401) {
+                return data
+            } else {
+                // this.props.history.push("/");
+                props.getCurrentUser();
+            }
+        });
     }
 
     return (

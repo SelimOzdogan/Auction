@@ -15,7 +15,7 @@ class App extends Component {
       currentUser: {}
     }
     this.getCurrentUser = this.getCurrentUser.bind(this);
-    this.handleSignIn = this.handleSignIn.bind(this);
+    // this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   componentDidMount() {
@@ -23,31 +23,41 @@ class App extends Component {
   }
 
   getCurrentUser() {
-    User.current().then((data) => {
-      this.setState((state) => {
-        return {
-          currentUser: data
-        }
+    User.current()
+      .then((data) => {
+        this.setState((state) => {
+          return {
+            currentUser: data
+          }
+        });
       });
+  }
+  destroySession = () => {
+    Session.destroy().then((data) => {
+      this.setState({ currentUser: null });
     });
-  }
-
-  handleSignIn(params) {
-    Session.create(params).then((data) => {
-      this.getCurrentUser()
-    })
-  }
+  };
+  // handleSignIn(params) {
+  //   Session.create(params).then((data) => {
+  //     this.getCurrentUser()
+  //   })
+  // }
   render() {
     return (
       <div>
         <BrowserRouter>
-          <NavBar currentUser={this.state.currentUser} />
+          <NavBar
+            currentUser={this.state.currentUser}
+            signOut={this.destroySession}
+          />
           <Switch>
             <Route path="/" exact component={WelcomePage} />
             <Route path='/auctions' exact component={AuctionIndexPage} />
             <Route path='/auctions/new' component={AuctionNewPage} />
             <Route path="/auctions/:id" component={AuctionShowPage} />
-            <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps} />} />
+            {/* <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps} />} /> */}
+            <Route path="/sign_in" render={(routeProps) => <SignInPage getCurrentUser={this.getCurrentUser} {...routeProps} />} />
+
           </Switch>
         </BrowserRouter>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 function Navbar(props) {
-  const { currentUser } = props;
+  const { currentUser, signOut } = props;
 
   return (
     <div>
@@ -10,9 +10,19 @@ function Navbar(props) {
       |
       <NavLink to='/auctions/new'>New Auction</NavLink>
       |
-      <NavLink to='/sign_in'>Sign In</NavLink>
-      |
-      {/* {currentUser.name} */}
+      {!currentUser && (
+        <NavLink className="ui small blue button" to="/sign_in">
+          Sign In
+        </NavLink>
+      )}
+      {currentUser && (
+        <>
+          <span className="item">Hello {currentUser.name}</span>
+          <NavLink className="ui small red button" to="/" onClick={signOut}>
+            Sign Out
+            </NavLink>
+        </>
+      )}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AuctionDetails from '../AuctionDetails';
 import BidList from '../BidList';
+import BidNewPage from '../BidNewPage';
 import { Auction } from '../../requests';
 
 class AuctionShowPage extends Component {
@@ -54,6 +55,8 @@ class AuctionShowPage extends Component {
             /> :
             <div>Auction is loading...</div>
         }
+        <BidNewPage auction_id={id} />
+
         <div> Previous Bids </div>
         <BidList bids={bid} />
       </main>
