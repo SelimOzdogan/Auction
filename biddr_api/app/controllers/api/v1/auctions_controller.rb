@@ -11,8 +11,7 @@ class Api::V1::AuctionsController < Api::ApplicationController
     if @auction
       render(
         json: @auction,
-        include: [:bid]
-
+        include: [:bid],
       )
     else
       render(json: { error: "Auction Not Found" })

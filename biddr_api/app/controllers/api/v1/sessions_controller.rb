@@ -1,6 +1,5 @@
 class Api::V1::SessionsController < Api::ApplicationController
   def create
-    byebug
     user = User.find_by_email params[:email]
     if user&.authenticate params[:password]
       session[:user_id] = user.id

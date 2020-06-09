@@ -7,6 +7,8 @@ import SignInPage from '../SignInPage';
 import WelcomePage from '../WelcomePage';
 import NavBar from '../NavBar';
 import { User, Session } from "../../requests";
+import AuthRoute from "../AuthRoute";
+
 
 class App extends Component {
   constructor(props) {
@@ -53,11 +55,14 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={WelcomePage} />
             <Route path='/auctions' exact component={AuctionIndexPage} />
-            <Route path='/auctions/new' component={AuctionNewPage} />
+            <AuthRoute
+              isAuthenticated={this.state.currentUser}
+              component={AuctionNewPage}
+              path="/auctions/new"
+              style={{ color: "red", backgroundColor: "red" }}
+            />
             <Route path="/auctions/:id" component={AuctionShowPage} />
-            {/* <Route path='/sign_in' render={(routeProps) => <SignInPage handleSignIn={this.handleSignIn} {...routeProps} />} /> */}
             <Route path="/sign_in" render={(routeProps) => <SignInPage getCurrentUser={this.getCurrentUser} {...routeProps} />} />
-
           </Switch>
         </BrowserRouter>
       </div>
