@@ -21,7 +21,7 @@ function BidNewPage(props) {
             },
             body: JSON.stringify(params)
         }).then((res) => {
-            return res.json();
+             return res.json();
         }).then((data) => {
             console.log(data);
         })
